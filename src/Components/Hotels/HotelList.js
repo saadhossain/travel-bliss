@@ -7,8 +7,8 @@ const HotelList = ({ hotel }) => {
     const restFacility = facilities.slice(5, -1)
     return (
         <div>
-            <div className="card card-side bg-base-100 shadow-xl">
-                <figure><img src={image} alt={name} className='h-full w-[400px]' /></figure>
+            <div className="card card-side bg-base-100 shadow-xl flex-col md:flex-row">
+                <figure><img src={image} alt={name} className='h-52 md:h-full w-[400px]' /></figure>
                 <div className="card-body text-left">
                     <h2 className="card-title text-tbliss">{name}</h2>
                     <div className='flex items-center'>
