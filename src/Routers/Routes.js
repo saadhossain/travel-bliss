@@ -13,7 +13,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path:'/hotels/:id',
-                loader: ({params})=> fetch(`http://localhost:5000/destinations/${params.id}`),
+                loader: ({params})=> fetch(`http://localhost:5000/hotels/${params.id}`),
                 element:<Hotels></Hotels>
             }
         ]
