@@ -1,7 +1,10 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
 import './Home.css';
-import HomePackages from './HomePackages';
+import TourPackages from './TourPackages';
 const Home = () => {
+    const destinations = useLoaderData();
+    console.log(destinations);
     return (
         <div>
             {/* Home Banner Section */}
@@ -11,7 +14,12 @@ const Home = () => {
                 <button className='bg-tbliss text-white font-semibold rounded py-3 px-5 my-5 duration-500 ease-in-out hover:bg-tbliss2nd'>Book Now</button>
             </div>
             <div className='w-10/12 mx-auto py-10'>
-                <HomePackages></HomePackages>
+                <h2 className='text-4xl font-bold text-tbliss mb-5'>Top Turist Destination</h2>
+                <div className='grid md:grid-cols-2 gap-5'>
+                    {
+                        destinations.map(destination => <TourPackages key={destination.id} destination={destination}></TourPackages>)
+                    }
+                </div>
             </div>
         </div>
     );
