@@ -7,10 +7,10 @@ const Header = () => {
     return (
         <div className='bg-tbliss text-white py-2'>
             <div className='w-10/12 mx-auto flex justify-between items-center'>
-                <div className='flex items-center gap-2'>
+                <Link to='/' className='flex items-center gap-2'>
                     <img src={logo} alt='Branding' className='h-10 w-10' />
                     <h1 className='text-3xl font-bold'>TravelBliss</h1>
-                </div>
+                </Link>
                 <div className='flex gap-3 items-center'>
                     <ul className={`font-semibold md:flex gap-4 bg-tbliss py-2 px-10 absolute md:static duration-500 ease-in-out ${expand ? 'top-10 right-0' : 'top-[-200px] right-0'}`}>
                         <li><Link to='/'>Home</Link></li>

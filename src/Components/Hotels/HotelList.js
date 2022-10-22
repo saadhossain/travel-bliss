@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HotelList = ({ hotel }) => {
     const { venue, name, image, description, feature, facilities, rating, location, cost } = hotel;
@@ -60,7 +61,7 @@ const HotelList = ({ hotel }) => {
                     </div>
                     <h2 className="card-title text-tbliss2nd">Cost: <span className='text-tbliss'>${cost}</span>/<small>night</small></h2>
                     <div className="card-actions justify-end">
-                        <button className="bg-tbliss text-white font-bold py-3 px-5 rounded-lg duration-500 ease-in-out hover:bg-tbliss2nd">Confirm Booking</button>
+                        <button className="bg-tbliss text-white font-bold py-3 px-5 rounded-lg duration-500 ease-in-out hover:bg-tbliss2nd"><Link to='/booking'>Confirm Booking</Link></button>
                     </div>
                 </div>
             </div>
