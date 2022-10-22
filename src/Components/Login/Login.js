@@ -1,24 +1,42 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
-    const {googleSignIn, githubLogin} = useContext(AuthContext);
+    const { googleSignIn, githubLogin, userLogin} = useContext(AuthContext);
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/profile'
     //Login Using Google
-    const handleGoogleSignIn = () =>{
+    const handleGoogleSignIn = () => {
         googleSignIn()
-        .then((restul)=> {
-            const user = restul.user;
-            console.log(user);
-        })
-        .catch(error => console.log(error))
+            .then((restul) => {
+                const user = restul.user;
+                console.log(user);
+            })
+            .catch(error => console.log(error))
     }
     //Login Using Github
     const handleGithubLogin = () => {
         githubLogin()
-        .then((result)=>{
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.error(error))
+    }
+    //Login using email and password
+    const handleLogin = (e) => {
+        e.preventDefault()
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        userLogin(email, password)
+        .then((result)=> {
             const user = result.user;
             console.log(user);
+            navigate(from, {replace: true})
         })
         .catch(error => console.error(error))
     }
@@ -26,10 +44,10 @@ const Login = () => {
         <div className='flex justify-center mt-10'>
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-tbliss text-white">
                 <h1 className="text-2xl font-bold text-center">Login your Account</h1>
-                <form noValidate="" action="" className="space-y-6 ng-untouched ng-pristine ng-valid">
+                <form onSubmit={handleLogin} className="space-y-6 ng-untouched ng-pristine ng-valid">
                     <div className="space-y-1 text-md">
-                        <label htmlFor="username" className="block">Email</label>
-                        <input type="text" name="username" id="username" placeholder="Username" className="w-full px-4 py-3 rounded-md bg-white text-gray-700 focus:dark:border-violet-400" />
+                        <label htmlFor="email" className="block">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Username" className="w-full px-4 py-3 rounded-md bg-white text-gray-700 focus:dark:border-violet-400" />
                     </div>
                     <div className="space-y-1 text-md">
                         <label htmlFor="password" className="block">Password</label>
@@ -38,7 +56,7 @@ const Login = () => {
                             <Link rel="noopener noreferrer" href="#">Forgot Password?</Link>
                         </div>
                     </div>
-                    <button className="block w-full p-3 text-center rounded-sm font-bold bg-tbliss2nd">Sign in</button>
+                    <button type='submit' className="block w-full p-3 text-center rounded-sm font-bold bg-tbliss2nd">Sign in</button>
                 </form>
                 <div className="flex items-center pt-4 space-x-1">
                     <div className="flex-1 h-px sm:w-16 bg-white"></div>

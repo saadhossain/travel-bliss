@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Register = () => {
-    const {googleSignIn, githubLogin} = useContext(AuthContext);
+    const {googleSignIn, githubLogin, userRegister, verifyEmail, updateUsername} = useContext(AuthContext);
     const handleGoogleSignIn = () =>{
         googleSignIn()
         .then((restul)=> {
@@ -21,11 +21,32 @@ const Register = () => {
         })
         .catch(error => console.error(error))
     }
+    //Register Functionality
+    const handleRegister = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const fullName = form.fullname.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        userRegister(email, password)
+        .then((result)=>{
+            const user = result.user;
+            console.log(user);
+            verifyEmail()
+            .then(()=> {})
+            .catch(error => console.error(error))
+            updateUsername(fullName)
+            .then(()=> {})
+            .catch(error => console.error(error))
+            form.reset();
+        })
+        .catch(error => console.error(error))
+    }
     return (
         <div className='flex justify-center mt-10'>
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-tbliss text-white">
                 <h1 className="text-2xl font-bold text-center">Register for A Account</h1>
-                <form noValidate="" action="" className="space-y-6 ng-untouched ng-pristine ng-valid">
+                <form onSubmit={handleRegister} action="" className="space-y-6 ng-untouched ng-pristine ng-valid">
                     <div className="space-y-1 text-md">
                         <label htmlFor="fullname" className="block">Full Name</label>
                         <input type="text" name="fullname" id="fullname" placeholder="Full Name" className="w-full px-4 py-3 rounded-md bg-white text-gray-700 focus:dark:border-violet-400" />
@@ -38,7 +59,7 @@ const Register = () => {
                         <label htmlFor="password" className="block">Password</label>
                         <input type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3 rounded-md bg-white text-gray-700 focus:dark:border-violet-400" />
                     </div>
-                    <button className="block w-full p-3 text-center rounded-sm font-bold bg-tbliss2nd">Register</button>
+                    <button type='submit' className="block w-full p-3 text-center rounded-sm font-bold bg-tbliss2nd">Register</button>
                 </form>
                 <div className="flex items-center pt-4 space-x-1">
                     <div className="flex-1 h-px sm:w-16 bg-white"></div>
