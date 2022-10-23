@@ -4,12 +4,13 @@ import App from './App';
 import AuthProvider from './Context/AuthProvider';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
+import { Toaster } from 'react-hot-toast';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <App />
+      <Toaster/>
     </AuthProvider>
   </React.StrictMode>
 );

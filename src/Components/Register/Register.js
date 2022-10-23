@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Register = () => {
     const {googleSignIn, githubLogin, userRegister, verifyEmail, updateUsername} = useContext(AuthContext);
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/login'
     const handleGoogleSignIn = () =>{
         googleSignIn()
         .then((restul)=> {
             const user = restul.user;
             console.log(user);
+            navigate(from, {replace: true})
         })
         .catch(error => console.log(error))
     }
@@ -18,6 +23,7 @@ const Register = () => {
         .then((result)=>{
             const user = result.user;
             console.log(user);
+            navigate(from, {replace: true})
         })
         .catch(error => console.error(error))
     }
@@ -38,7 +44,9 @@ const Register = () => {
             updateUsername(fullName)
             .then(()=> {})
             .catch(error => console.error(error))
+            toast.success('Please Check your Email')
             form.reset();
+            navigate(from, {replace: true})
         })
         .catch(error => console.error(error))
     }
